@@ -97,6 +97,11 @@ return [
 
     'middleware' => [
         'web',
+        ...(
+            config('app.env') === 'production' && env('LOG_VIEWER_REQUIRE_AUTH_IN_PRODUCTION', true)
+                ? ['auth.basic']
+                : []
+        ),
         \Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
     ],
 
