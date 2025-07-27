@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'dispatcher-endpoint' => env('APP_DISPATCHER_ENDPOINT', '/dispatcher'),
 ];

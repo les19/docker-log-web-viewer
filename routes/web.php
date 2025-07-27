@@ -4,6 +4,6 @@ use App\Http\Controllers\LoggerController;
 use App\Http\Middleware\DefaultHeaderChecker;
 use Illuminate\Support\Facades\Route;
 
-Route::any('/logger', LoggerController::class)
+Route::any(config('app.dispatcher-endpoint'), LoggerController::class)
     ->middleware([DefaultHeaderChecker::class])
-    ->name('logger.handle');
+    ->name('dispatcher.handle');
