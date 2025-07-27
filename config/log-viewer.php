@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'route_path' => '/',
+    'route_path' => env('LOG_VIEWER_ROUTE_PATH', 'log-viewer'),
 
     /*
     |--------------------------------------------------------------------------
