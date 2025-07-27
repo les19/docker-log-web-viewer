@@ -1,6 +1,4 @@
 {
     "message": "If you see this message - please use your own users.json file as composer volume.",
-    "users" : [
-        "test@test.com"
-    ]
+    "users" : []
 }
