@@ -69,6 +69,18 @@ class AddUsers extends Command
                         $table[] = [$user, $password ?: 'Already exists'];
 
                         break;
+                    case 'array':
+                        if (!isset($user['email']) || !isset($user['password'])) {
+                            $this->error("Invalid user data format. Expected: {\"email\": \"user@example.com\", \"password\": \"password\"}");
+
+                            break;
+                        }
+
+                        $password = $this->processStringUserKey($user['email'], $user['password']);
+
+                        $table[] = [$user, $password ?: 'Already exists'];
+
+                        break;
 
                     default:
                         $this->error("Invalid user data format. Expected: string.");
@@ -87,7 +99,7 @@ class AddUsers extends Command
         return Command::INVALID;
     }
 
-    public function processStringUserKey(string $userKey): string|false
+    public function processStringUserKey(string $userKey, ?string $password = null): string|false
     {
         // Assuming the user key is an email
         if (User::whereEmail($userKey)->exists()) {
@@ -96,7 +108,9 @@ class AddUsers extends Command
             return false;
         }
 
-        $password = bin2hex(random_bytes(8));
+        if (is_null($password)) {
+            $password = bin2hex(random_bytes(16)); // Generate a random password
+        }
 
         User::create([
             'email' => $userKey,
