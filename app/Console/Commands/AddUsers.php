@@ -78,7 +78,7 @@ class AddUsers extends Command
 
                         $password = $this->processStringUserKey($user['email'], $user['password']);
 
-                        $table[] = [$user, $password ?: 'Already exists'];
+                        $table[] = [$user['email'], $password['password']];
 
                         break;
 
